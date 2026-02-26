@@ -1,4 +1,3 @@
-// Force DNS servers to avoid ECONNREFUSED on Windows
 import dns from "node:dns/promises";
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
@@ -13,7 +12,7 @@ const PORT = process.env.PORT || 9900;
 
 app.use(express.json());
 
-// ✅ Correct MongoDB connection (no deprecated options)
+// ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
@@ -23,9 +22,7 @@ app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
-// Feedback Schema
-import mongoose from "mongoose";
-
+// Feedback Schema (no extra import!)
 const feedbackSchema = new mongoose.Schema({
   message: { type: String, required: true },
   sender: { type: String, default: "Anonymous" },
@@ -51,9 +48,5 @@ app.post("/api/feedback", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
-
-
-
 
 
