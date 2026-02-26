@@ -23,16 +23,11 @@ app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
-// Feedback route
-app.post("/feedback", (req, res) => {
-  console.log("Feedback received:", req.body); // log incoming data
-  res.status(200).json({ message: "Message sent successfully!" });
-});
-
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
 
 
 
