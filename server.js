@@ -23,10 +23,35 @@ app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
+// Feedback Schema
+import mongoose from "mongoose";
+
+const feedbackSchema = new mongoose.Schema({
+  message: { type: String, required: true },
+  sender: { type: String, default: "Anonymous" },
+  timestamp: { type: Date, default: Date.now }
+});
+
+const Feedback = mongoose.model("Feedback", feedbackSchema);
+
+// Feedback route
+app.post("/api/feedback", async (req, res) => {
+  try {
+    const { message, sender } = req.body;
+    const feedback = new Feedback({ message, sender });
+    await feedback.save();
+    res.status(200).json({ success: true, message: "Feedback saved!" });
+  } catch (error) {
+    console.error("❌ Error saving feedback:", error);
+    res.status(500).json({ success: false, message: "Error saving feedback" });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
 
 
 
