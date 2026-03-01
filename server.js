@@ -6,10 +6,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-const app = express();
-app.use(cors()); // allow all origins
 dotenv.config();
-
 const app = express();
 const PORT = process.env.PORT || 9900;
 
@@ -26,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
-// Feedback Schema (no extra import!)
+// Feedback Schema
 const feedbackSchema = new mongoose.Schema({
   message: { type: String, required: true },
   sender: { type: String, default: "Anonymous" },
@@ -52,6 +49,7 @@ app.post("/api/feedback", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
 
 
 
