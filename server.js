@@ -4,13 +4,17 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 
+const app = express();
+app.use(cors()); // allow all origins
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 9900;
 
 app.use(express.json());
+app.use(cors());
 
 // ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
@@ -48,5 +52,6 @@ app.post("/api/feedback", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
 
 
